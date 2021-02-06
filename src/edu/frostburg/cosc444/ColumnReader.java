@@ -12,39 +12,25 @@ public class ColumnReader implements Runnable {
 
     @Override
     public void run() {
-        if (JavaApplication.districtVictims.tryLock()) {
+        if (JavaApplication.districtVictims.tryLock())
             districtVictimCount();
-        } else {
-            if (JavaApplication.streetVictims.tryLock()) {
+        else if (JavaApplication.streetVictims.tryLock())
                 streetVictimCount();
-            } else {
-                if (JavaApplication.partOfDayVictims.tryLock()) {
+        else if (JavaApplication.partOfDayVictims.tryLock())
                     victimPartOfDayCount();
-                } else {
-                    if (JavaApplication.monthVictims.tryLock()) {
+        else if (JavaApplication.monthVictims.tryLock())
                         monthVictimCount();
-                    }else{
-                        if(JavaApplication.weekdayVictims.tryLock()){
+        else if (JavaApplication.weekdayVictims.tryLock())
                             weekdayVictimCount();
-                        }else{
-                            if(JavaApplication.neighborhoodVictims.tryLock()){
+        else if (JavaApplication.neighborhoodVictims.tryLock())
                                 neighborhoodVictimCount();
-                            }else{
-                                if(JavaApplication.weeklyPartOfDay.tryLock()){
+        else if (JavaApplication.weeklyPartOfDay.tryLock())
                                     weekdayPartOfDayVictimCount();
-                                }else{
-                                    if(JavaApplication.allRows.tryLock()){
-                                        if(JavaApplication.choice.toUpperCase().equals("Y"))
-                                            getAllRows();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        else if (JavaApplication.allRows.tryLock()) 
+            if (JavaApplication.choice.toUpperCase().equals("Y"))
+                getAllRows();
     }
+
 
     /**
      * Gets the count of victims per district
